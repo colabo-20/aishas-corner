@@ -5,7 +5,6 @@ A Windows 98-themed personal website with a dark burgundy aesthetic.
 **Features:**
 - Win98 window chrome, taskbar, desktop icons
 - Drag & drop music player (HTML5 Audio)
-- Spotify "Now Playing" integration (optional)
 - Guestbook with Supabase database (optional, localStorage fallback)
 - Personality stats, interests, update log
 - Fully responsive
@@ -41,11 +40,3 @@ CREATE POLICY "public insert" ON guestbook FOR INSERT WITH CHECK (true);
 5. Paste them in `script.js` under `CONFIG.SUPABASE_URL` and `CONFIG.SUPABASE_KEY`
 
 Without Supabase, the guestbook falls back to localStorage (works but not shared across browsers).
-
-### 3. Spotify Now Playing (optional)
-1. Go to [developer.spotify.com/dashboard](https://developer.spotify.com/dashboard)
-2. Create an app → copy the **Client ID**
-3. Under **Redirect URIs**, add your GitHub Pages URL (e.g. `https://colabo-20.github.io/aishas-corner/`)
-4. Paste the Client ID in `script.js` under `CONFIG.SPOTIFY_CLIENT_ID`
-
-Users can then click "Connect Spotify" to see what's playing on their Spotify.
