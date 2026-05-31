@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="aisha's corner — fashion, music, dark aesthetics.">
+  <title>aisha's corner 🥀</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- floating decorations -->
+  <div class="deco" style="left:11%;top:18%;animation-delay:0s;">🥀</div>
+  <div class="deco" style="left:87%;top:30%;animation-delay:1.3s;">🖤</div>
+  <div class="deco" style="left:76%;top:12%;animation-delay:2.1s;">✨</div>
+  <div class="deco" style="left:23%;top:68%;animation-delay:0.7s;">🌹</div>
+  <div class="deco" style="left:91%;top:74%;animation-delay:1.9s;">🥀</div>
+
+  <!-- desktop icons -->
+  <div class="desktop-icons">
+    <div class="desk-icon" data-scroll="#home"><div class="ico">🖥️</div><span>My Computer</span></div>
+    <div class="desk-icon" data-scroll="#about"><div class="ico">📁</div><span>About Me</span></div>
+    <div class="desk-icon" data-scroll="#guestbook"><div class="ico">💌</div><span>Guestbook</span></div>
+    <div class="desk-icon" data-scroll="#interests"><div class="ico">🥀</div><span>Interests</span></div>
+    <div class="desk-icon" data-scroll="#stats"><div class="ico">📊</div><span>My Stats</span></div>
+    <div class="desk-icon" data-scroll="#music"><div class="ico">🎵</div><span>Music</span></div>
+  </div>
+
+  <!-- welcome dialog -->
+  <div class="dialog-overlay" id="welcomeDialog">
+    <div class="win-window dialog-win">
+      <div class="win-titlebar">
+        <div class="win-titlebar-left"><span>🥀</span><span>welcome</span></div>
+        <div class="win-controls"><button class="win-btn" id="welcomeCloseX">✕</button></div>
+      </div>
+      <div class="dialog-body">
+        <div class="dialog-ico">🥀</div>
+        <div class="dialog-text">
+          welcome to aisha's corner.<br><br>
+          visitor #<span id="dialogVisitor">—</span>
+        </div>
+        <div class="dialog-btns">
+          <button class="dialog-btn" id="welcomeCloseOk">OK</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- header window -->
+  <div id="home" class="win-window header-window">
+    <div class="win-titlebar">
+      <div class="win-titlebar-left"><span>🥀</span><span>Aisha's Corner — Internet Explorer</span></div>
+      <div class="win-controls">
+        <button class="win-btn">_</button><button class="win-btn">□</button><button class="win-btn">✕</button>
+      </div>
+    </div>
+    <div class="win-menubar">
+      <span class="win-menu-item">File</span><span class="win-menu-item">Edit</span>
+      <span class="win-menu-item">View</span><span class="win-menu-item">Favorites</span>
+      <span class="win-menu-item">Help</span>
+    </div>
+    <div style="padding:0;">
+      <div class="header-inner">
+        <div class="header-deco">🥀 🖤 ✨ 🌹 ✨ 🖤 🥀</div>
+        <h1 class="site-title">☆ <span>aisha's</span> corner ☆</h1>
+        <div class="site-sub">▶ welcome ◀</div>
+        <div class="header-meta">
+          last updated: <span class="meta-hl" id="lastUpdated">—</span>
+          &nbsp;|&nbsp; best viewed with: <span class="meta-hl2">love ♡</span>
+        </div>
+        <div class="visitor-badge">visitors: <span id="visitorCount">...</span></div>
+      </div>
+    </div>
+    <div class="marquee-bar">
+      <div class="marquee-inner">
+        🥀 &emsp; fashion ★ music ★ aesthetics &emsp;&emsp;
+        @aishaakayyy &emsp;&emsp;
+        ★ dark mode always ★ &emsp;&emsp;
+        fashion ★ music ★ aesthetics &emsp;&emsp; 🥀
+      </div>
+    </div>
+  </div>
+
+  <!-- page layout -->
+  <div class="page-layout">
+
+    <!-- column 1 — nav + widgets -->
+    <div class="col col-1">
+
+      <!-- navigation -->
+      <div class="win-window">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>📁</span><span>Navigation</span></div>
+          <div class="win-controls"><button class="win-btn">_</button></div>
+        </div>
+        <div class="win-content" style="padding:4px;">
+          <ul class="nav-tree" id="navTree">
+            <li class="active" data-scroll="#home">🏠 home</li>
+            <li data-scroll="#about">🥀 about me</li>
+            <li data-scroll="#diary">📓 update log</li>
+            <li data-scroll="#interests">🖤 interests</li>
+            <li data-scroll="#music">🎵 music</li>
+            <li data-scroll="#stats">📊 stats</li>
+            <li data-scroll="#guestbook">💌 guestbook</li>
+            <li data-scroll="#currently">📺 currently</li>
+          </ul>
+        </div>
+        <div class="win-statusbar">8 items</div>
+      </div>
+
+      <!-- status -->
+      <div class="win-window">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>💀</span><span>status</span></div>
+          <div class="win-controls"><button class="win-btn">_</button></div>
+        </div>
+        <div class="win-content">
+          <div class="status-grid">
+            <div class="status-row"><span class="status-k">mood:</span><span class="status-v">🥀</span></div>
+            <div class="status-row"><span class="status-k">status:</span><span class="status-v online-dot">● online</span></div>
+            <div class="status-row"><span class="status-k">vibe:</span><span class="status-v">dark</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- mini now playing -->
+      <div class="win-window">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>🎵</span><span>Now Playing</span></div>
+          <div class="win-controls"><button class="win-btn">_</button></div>
+        </div>
+        <div class="win-content" style="text-align:center;">
+          <div class="mini-vinyl" id="miniVinyl">🎵</div>
+          <div class="mini-track-name" id="miniTrackName">nothing playing</div>
+          <div class="mini-track-artist" id="miniTrackArtist">—</div>
+          <div class="mini-prog-bar"><div class="mini-prog-fill" id="miniProgFill"></div></div>
+        </div>
+      </div>
+
+      <!-- quote -->
+      <div class="win-window">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>💬</span><span>quote.txt</span></div>
+          <div class="win-controls"><button class="win-btn">_</button></div>
+        </div>
+        <div class="win-content">
+          <div class="quote-box" id="quoteBox">"less is more, except for outfits." 🥀</div>
+        </div>
+      </div>
+
+      <!-- badges -->
+      <div class="win-window">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>🎀</span><span>Badges</span></div>
+          <div class="win-controls"><button class="win-btn">_</button></div>
+        </div>
+        <div class="win-content">
+          <div class="badge-area">
+            <div class="blinkie">🥀 DARK MODE 🥀</div>
+            <div class="blinkie blinkie-2">🖤 ONLINE 🖤</div>
+            <div class="blinkie blinkie-3">✨ MAIN CHARACTER ✨</div>
+            <div class="blinkie blinkie-4">💌 ICON 💌</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- end col-1 -->
+
+    <!-- column 2 — about, diary, guestbook -->
+    <div class="col col-2">
+
+      <!-- about me -->
+      <div class="win-window" id="about">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>🥀</span><span>About Me — aisha.txt</span></div>
+          <div class="win-controls">
+            <button class="win-btn">_</button><button class="win-btn">□</button><button class="win-btn">✕</button>
+          </div>
+        </div>
+        <div class="win-menubar">
+          <span class="win-menu-item">File</span><span class="win-menu-item">Edit</span>
+          <span class="win-menu-item">Format</span><span class="win-menu-item">Help</span>
+        </div>
+        <div class="win-content">
+          <div class="about-layout">
+            <div class="about-left">
+              <div class="avatar-container">
+                <img src="avatar.png" alt="Aisha" class="avatar-img"
+                  onerror="this.style.display='none';document.getElementById('avatarFallback').style.display='flex';">
+                <div class="avatar-fallback" id="avatarFallback" style="display:none;">🥀</div>
+              </div>
+              <div class="avatar-name">✦ aisha ✦</div>
+              <div class="avatar-badges">
+                <span class="abadge">she/her</span>
+                <span class="abadge">🥀</span>
+              </div>
+            </div>
+            <div class="about-right">
+              <div class="about-bio">
+                <p>hi, i'm <span class="name-hl">aisha</span>.</p>
+                <p>fashion, music, dark aesthetics — and an unreasonable amount of personality.</p>
+                <p>i style things, curate playlists, and post on instagram.</p>
+              </div>
+              <div class="facts-table">
+                <div class="fact-r"><span class="fk">📍 location:</span><span class="fv">undisclosed</span></div>
+                <div class="fact-r"><span class="fk">🥀 vibe:</span><span class="fv">dark aesthetics</span></div>
+                <div class="fact-r"><span class="fk">💌 love language:</span><span class="fv">a good outfit</span></div>
+                <div class="fact-r"><span class="fk">⚡ fun fact:</span><span class="fv">funnier than you'd expect</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="win-statusbar">last modified: 01.06.2026 &nbsp;|&nbsp; 1 file</div>
+      </div>
+
+      <!-- update log -->
+      <div class="win-window" id="diary">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>📓</span><span>Update Log</span></div>
+          <div class="win-controls">
+            <button class="win-btn">_</button><button class="win-btn">□</button><button class="win-btn">✕</button>
+          </div>
+        </div>
+        <div class="win-content">
+          <div class="diary-list">
+            <div class="diary-entry">
+              <div class="diary-date">★ 01.06.2026</div>
+              <div class="diary-body">site launched. dark, minimal, exactly right.</div>
+            </div>
+            <div class="diary-entry">
+              <div class="diary-date">★ 01.06.2026</div>
+              <div class="diary-body">guestbook + music player live. leave a message if you want.</div>
+            </div>
+            <div class="diary-entry">
+              <div class="diary-date">★ coming soon</div>
+              <div class="diary-body">more updates.</div>
+            </div>
+          </div>
+        </div>
+        <div class="win-statusbar">3 entries</div>
+      </div>
+
+      <!-- guestbook -->
+      <div class="win-window" id="guestbook">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>💌</span><span>Guestbook</span></div>
+          <div class="win-controls">
+            <button class="win-btn">_</button><button class="win-btn">□</button><button class="win-btn">✕</button>
+          </div>
+        </div>
+        <div class="win-menubar">
+          <span class="win-menu-item">Sign</span><span class="win-menu-item">View All</span>
+        </div>
+        <div class="win-content">
+          <div class="gb-form">
+            <div class="gb-form-row">
+              <label class="gb-label" for="gbName">name:</label>
+              <input type="text" class="gb-input" id="gbName" placeholder="your name" maxlength="30" autocomplete="off">
+            </div>
+            <div class="gb-form-row">
+              <label class="gb-label" for="gbMsg">message:</label>
+              <textarea class="gb-input gb-textarea" id="gbMsg" placeholder="leave a message" maxlength="200" rows="3"></textarea>
+            </div>
+            <button class="dialog-btn" id="gbSubmit">Sign Guestbook</button>
+          </div>
+          <div class="gb-entries-box" id="gbEntries">
+            <!-- rendered by script.js -->
+          </div>
+        </div>
+        <div class="win-statusbar" id="gbStatus">loading...</div>
+      </div>
+
+      <!-- instagram -->
+      <div class="win-window" id="links">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>🔗</span><span>Links</span></div>
+          <div class="win-controls">
+            <button class="win-btn">_</button><button class="win-btn">✕</button>
+          </div>
+        </div>
+        <div class="win-content">
+          <div class="links-list">
+            <a href="https://www.instagram.com/aishaakayyy" target="_blank" rel="noopener" class="link-item" id="link-insta">
+              <span class="link-ico">📸</span>
+              <div class="link-info">
+                <span class="link-name">@aishaakayyy</span>
+                <span class="link-desc">instagram</span>
+              </div>
+              <span class="link-arr">→</span>
+            </a>
+          </div>
+        </div>
+        <div class="win-statusbar">1 link</div>
+      </div>
+
+    </div>
+    <!-- end col-2 -->
+
+    <!-- column 3 — interests, music, currently, stats -->
+    <div class="col col-3">
+
+      <!-- interests -->
+      <div class="win-window" id="interests">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>🥀</span><span>Interests</span></div>
+          <div class="win-controls">
+            <button class="win-btn">_</button><button class="win-btn">□</button><button class="win-btn">✕</button>
+          </div>
+        </div>
+        <div class="win-content">
+          <div class="interest-grid">
+            <div class="int-card">
+              <div class="int-ico">👗</div>
+              <div class="int-title">Fashion &amp; Styling</div>
+              <div class="int-desc">outfits that do the talking.</div>
+            </div>
+            <div class="int-card">
+              <div class="int-ico">🎵</div>
+              <div class="int-title">Music</div>
+              <div class="int-desc">curated playlists, no skips.</div>
+            </div>
+            <div class="int-card">
+              <div class="int-ico">📸</div>
+              <div class="int-title">Instagram</div>
+              <div class="int-desc">the main platform.</div>
+            </div>
+            <div class="int-card">
+              <div class="int-ico">🥀</div>
+              <div class="int-title">Dark Aesthetics</div>
+              <div class="int-desc">roses, moody tones, rich textures.</div>
+            </div>
+            <div class="int-card">
+              <div class="int-ico">🖤</div>
+              <div class="int-title">Chaos</div>
+              <div class="int-desc">structured spontaneity.</div>
+            </div>
+            <div class="int-card">
+              <div class="int-ico">💬</div>
+              <div class="int-title">Sarcasm</div>
+              <div class="int-desc">a love language.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- music player -->
+      <div class="win-window" id="music">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>🎵</span><span>Aisha Media Player</span></div>
+          <div class="win-controls">
+            <button class="win-btn">_</button><button class="win-btn">□</button><button class="win-btn">✕</button>
+          </div>
+        </div>
+        <div class="win-menubar">
+          <span class="win-menu-item">File</span><span class="win-menu-item">Play</span>
+          <span class="win-menu-item">Playlist</span>
+        </div>
+        <div class="win-content">
+          <!-- player display -->
+          <div class="player-screen">
+            <div class="vinyl-area">
+              <div class="vinyl" id="vinyl">🎵</div>
+            </div>
+            <div class="player-meta">
+              <div class="player-track" id="pTrack">no track selected</div>
+              <div class="player-artist" id="pArtist">—</div>
+              <div class="prog-bar-wrap">
+                <div class="prog-track"><div class="prog-fill" id="pFill"></div></div>
+                <div class="prog-times">
+                  <span id="pCurrent">0:00</span>
+                  <span id="pTotal">0:00</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- controls -->
+          <div class="player-ctrls">
+            <button class="pctrl-btn" id="prevBtn" title="Previous">⏮</button>
+            <button class="pctrl-btn pctrl-play" id="playBtn" title="Play / Pause">▶</button>
+            <button class="pctrl-btn" id="nextBtn" title="Next">⏭</button>
+            <button class="pctrl-btn" id="volDown" title="Volume Down">🔉</button>
+            <button class="pctrl-btn" id="volUp" title="Volume Up">🔊</button>
+          </div>
+
+          <!-- spotify connect -->
+          <div class="spotify-section" id="spotifySection">
+            <div id="spotifyWidget">
+              <button class="dialog-btn spotify-btn" id="spotifyConnect">
+                <span class="spotify-icon">●</span> Connect Spotify
+              </button>
+            </div>
+            <div class="spotify-now-playing hidden" id="spotifyNowPlaying">
+              <div class="spotify-np-info">
+                <img id="spotifyAlbumArt" class="spotify-album-art" src="" alt="">
+                <div>
+                  <div class="spotify-np-track" id="spotifyTrackName">—</div>
+                  <div class="spotify-np-artist" id="spotifyArtistName">—</div>
+                </div>
+              </div>
+              <button class="dialog-btn spotify-disconnect" id="spotifyDisconnect">Disconnect</button>
+            </div>
+          </div>
+
+          <!-- drop zone -->
+          <div class="drop-zone" id="dropZone">
+            <div class="drop-zone-icon">📂</div>
+            <div class="drop-zone-text">drop audio files here<br><span>or click to browse</span></div>
+            <input type="file" id="fileInput" accept="audio/*" multiple hidden>
+          </div>
+
+          <!-- playlist -->
+          <div class="playlist-box" id="playlist">
+            <div class="pl-empty">no tracks loaded</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- currently -->
+      <div class="win-window" id="currently">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>📺</span><span>Currently</span></div>
+          <div class="win-controls">
+            <button class="win-btn">_</button><button class="win-btn">□</button><button class="win-btn">✕</button>
+          </div>
+        </div>
+        <div class="win-content">
+          <div class="curr-list">
+            <div class="curr-item">
+              <span class="curr-ico">📻</span>
+              <div><div class="curr-label">listening to</div><div class="curr-val">whatever hits right</div></div>
+            </div>
+            <div class="curr-item">
+              <span class="curr-ico">📺</span>
+              <div><div class="curr-label">watching</div><div class="curr-val">mood films</div></div>
+            </div>
+            <div class="curr-item">
+              <span class="curr-ico">🛍️</span>
+              <div><div class="curr-label">manifesting</div><div class="curr-val">a new wardrobe</div></div>
+            </div>
+            <div class="curr-item">
+              <span class="curr-ico">🥀</span>
+              <div><div class="curr-label">mood</div><div class="curr-val">thriving</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- personality stats -->
+      <div class="win-window" id="stats">
+        <div class="win-titlebar">
+          <div class="win-titlebar-left"><span>📊</span><span>Stats</span></div>
+          <div class="win-controls">
+            <button class="win-btn">_</button><button class="win-btn">□</button><button class="win-btn">✕</button>
+          </div>
+        </div>
+        <div class="win-content">
+          <div class="stats-list">
+            <div class="stat-row">
+              <span class="stat-name">chaos</span>
+              <div class="stat-bar"><div class="stat-fill" data-pct="85"></div></div>
+              <span class="stat-pct">85%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">sarcasm</span>
+              <div class="stat-bar"><div class="stat-fill" data-pct="100"></div></div>
+              <span class="stat-pct">100%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">softness</span>
+              <div class="stat-bar"><div class="stat-fill" data-pct="80"></div></div>
+              <span class="stat-pct">80%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">drama</span>
+              <div class="stat-bar"><div class="stat-fill" data-pct="95"></div></div>
+              <span class="stat-pct">95%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">fashion</span>
+              <div class="stat-bar"><div class="stat-fill" data-pct="98"></div></div>
+              <span class="stat-pct">98%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">main character</span>
+              <div class="stat-bar"><div class="stat-fill" data-pct="100"></div></div>
+              <span class="stat-pct">100%</span>
+            </div>
+            <div class="stat-row">
+              <span class="stat-name">loyalty</span>
+              <div class="stat-bar"><div class="stat-fill" data-pct="100"></div></div>
+              <span class="stat-pct">100%</span>
+            </div>
+          </div>
+        </div>
+        <div class="win-statusbar">7 traits</div>
+      </div>
+
+    </div>
+    <!-- end col-3 -->
+
+  </div>
+  <!-- end page-layout -->
+
+  <!-- taskbar -->
+  <div class="taskbar">
+    <button class="start-btn" id="startBtn">🥀 Start</button>
+    <div class="tbdiv"></div>
+    <button class="taskbar-btn" data-scroll="#home">🖥️ Home</button>
+    <button class="taskbar-btn" data-scroll="#about">🥀 About</button>
+    <button class="taskbar-btn" data-scroll="#music">🎵 Music</button>
+    <div class="clock-area" id="taskClock">--:--</div>
+  </div>
+
+  <!-- supabase SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
