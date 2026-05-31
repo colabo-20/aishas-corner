@@ -1,12 +1,12 @@
 /* ============================================================
    AISHA'S CORNER — script.js
-   Drag & Drop Music Player + Spotify + Supabase Guestbook
+   Drag & Drop Music Player + Supabase Guestbook
    ============================================================ */
 
 'use strict';
 
 /* ──────────────────────────────────────────────────────────────
-   CONFIG — Fill these in after setting up Supabase & Spotify
+   CONFIG — Fill these in after setting up Supabase
 ────────────────────────────────────────────────────────────── */
 const CONFIG = {
   // Supabase (free at supabase.com)
@@ -15,11 +15,6 @@ const CONFIG = {
   // 3. Enable RLS → add policy: allow SELECT and INSERT for anon role
   SUPABASE_URL:  '',  // e.g. 'https://xxxx.supabase.co'
   SUPABASE_KEY:  '',  // your anon/public key
-
-  // Spotify (developer.spotify.com)
-  // 1. Create app → get Client ID
-  // 2. Set redirect URI to your GitHub Pages URL
-  SPOTIFY_CLIENT_ID: '',  // e.g. 'abc123...'
 };
 
 /* ──────────────────────────────────────────────────────────────
@@ -105,10 +100,11 @@ function initScrollSpy() {
 ────────────────────────────────────────────────────────────── */
 const QUOTES = [
   '"less is more, except for outfits." 🥀',
-  '"dark aesthetic, warm soul."',
+  '"i don\'t cook, i rule." 👑',
+  '"always live like a queen."',
   '"if the vibe is off, so am i."',
   '"curated chaos." 🖤',
-  '"dress like nobody\'s watching."',
+  '"marrying rich is just standard procedure."',
   '"roses are prettier in the dark."',
 ];
 
@@ -400,189 +396,6 @@ function initPlayer() {
 }
 
 /* ──────────────────────────────────────────────────────────────
-   SPOTIFY — PKCE Auth Flow (no server needed)
-────────────────────────────────────────────────────────────── */
-function randomString(len) {
-  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const arr = crypto.getRandomValues(new Uint8Array(len));
-  return Array.from(arr, v => chars[v % chars.length]).join('');
-}
-
-async function sha256(plain) {
-  return crypto.subtle.digest('SHA-256', new TextEncoder().encode(plain));
-}
-
-function base64url(buf) {
-  return btoa(String.fromCharCode(...new Uint8Array(buf)))
-    .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
-}
-
-async function spotifyAuth() {
-  if (!CONFIG.SPOTIFY_CLIENT_ID) { alert('Spotify Client ID not configured. Set it in script.js CONFIG.'); return; }
-  const verifier = randomString(128);
-  const challenge = base64url(await sha256(verifier));
-  localStorage.setItem('sp_verifier', verifier);
-  const redirectUri = window.location.origin + window.location.pathname;
-  const params = new URLSearchParams({
-    client_id: CONFIG.SPOTIFY_CLIENT_ID,
-    response_type: 'code',
-    redirect_uri: redirectUri,
-    scope: 'user-read-currently-playing user-read-playback-state',
-    code_challenge_method: 'S256',
-    code_challenge: challenge,
-  });
-  window.location.href = 'https://accounts.spotify.com/authorize?' + params;
-}
-
-async function handleSpotifyCallback() {
-  const params = new URLSearchParams(window.location.search);
-  const code = params.get('code');
-  if (!code || !CONFIG.SPOTIFY_CLIENT_ID) return false;
-  const verifier = localStorage.getItem('sp_verifier');
-  if (!verifier) return false;
-
-  try {
-    const redirectUri = window.location.origin + window.location.pathname;
-    const res = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        client_id: CONFIG.SPOTIFY_CLIENT_ID,
-        grant_type: 'authorization_code',
-        code,
-        redirect_uri: redirectUri,
-        code_verifier: verifier,
-      }),
-    });
-    const data = await res.json();
-    if (data.access_token) {
-      localStorage.setItem('sp_access', data.access_token);
-      localStorage.setItem('sp_refresh', data.refresh_token);
-      localStorage.setItem('sp_expires', String(Date.now() + data.expires_in * 1000));
-      window.history.replaceState({}, document.title, window.location.pathname);
-      return true;
-    }
-  } catch (e) { console.warn('Spotify token exchange failed:', e); }
-  return false;
-}
-
-async function refreshSpotifyToken() {
-  const rt = localStorage.getItem('sp_refresh');
-  if (!rt || !CONFIG.SPOTIFY_CLIENT_ID) return false;
-  try {
-    const res = await fetch('https://accounts.spotify.com/api/token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: new URLSearchParams({
-        client_id: CONFIG.SPOTIFY_CLIENT_ID,
-        grant_type: 'refresh_token',
-        refresh_token: rt,
-      }),
-    });
-    const data = await res.json();
-    if (data.access_token) {
-      localStorage.setItem('sp_access', data.access_token);
-      localStorage.setItem('sp_expires', String(Date.now() + data.expires_in * 1000));
-      if (data.refresh_token) localStorage.setItem('sp_refresh', data.refresh_token);
-      return true;
-    }
-  } catch (e) {}
-  return false;
-}
-
-async function getSpotifyToken() {
-  const exp = parseInt(localStorage.getItem('sp_expires') || '0');
-  if (Date.now() >= exp - 60000) {
-    if (!await refreshSpotifyToken()) return null;
-  }
-  return localStorage.getItem('sp_access');
-}
-
-async function fetchNowPlaying() {
-  const token = await getSpotifyToken();
-  if (!token) return null;
-  try {
-    const res = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-      headers: { 'Authorization': 'Bearer ' + token },
-    });
-    if (res.status === 204 || res.status === 401) return null;
-    if (!res.ok) return null;
-    return res.json();
-  } catch (e) { return null; }
-}
-
-function disconnectSpotify() {
-  localStorage.removeItem('sp_access');
-  localStorage.removeItem('sp_refresh');
-  localStorage.removeItem('sp_expires');
-  localStorage.removeItem('sp_verifier');
-  updateSpotifyUI(false);
-}
-
-function updateSpotifyUI(connected) {
-  const widget = document.getElementById('spotifyWidget');
-  const np = document.getElementById('spotifyNowPlaying');
-  if (connected) {
-    if (widget) widget.style.display = 'none';
-    if (np) np.classList.remove('hidden');
-  } else {
-    if (widget) widget.style.display = '';
-    if (np) np.classList.add('hidden');
-  }
-}
-
-let spotifyPollTimer = null;
-
-async function pollSpotify() {
-  const data = await fetchNowPlaying();
-  const trackEl = document.getElementById('spotifyTrackName');
-  const artistEl = document.getElementById('spotifyArtistName');
-  const artEl = document.getElementById('spotifyAlbumArt');
-
-  if (data && data.item) {
-    if (trackEl) trackEl.textContent = data.item.name || '—';
-    if (artistEl) artistEl.textContent = (data.item.artists || []).map(a => a.name).join(', ') || '—';
-    if (artEl && data.item.album?.images?.[0]?.url) {
-      artEl.src = data.item.album.images[data.item.album.images.length > 1 ? 1 : 0].url;
-    }
-  } else {
-    if (trackEl) trackEl.textContent = 'nothing playing';
-    if (artistEl) artistEl.textContent = '—';
-    if (artEl) artEl.src = '';
-  }
-}
-
-async function initSpotify() {
-  if (!CONFIG.SPOTIFY_CLIENT_ID) {
-    // hide spotify section entirely if not configured
-    const section = document.getElementById('spotifySection');
-    if (section) section.style.display = 'none';
-    return;
-  }
-
-  // handle callback
-  const wasCallback = await handleSpotifyCallback();
-
-  // check if already connected
-  const token = localStorage.getItem('sp_access');
-  const isConnected = !!(token && parseInt(localStorage.getItem('sp_expires') || '0') > Date.now());
-
-  if (wasCallback || isConnected) {
-    updateSpotifyUI(true);
-    pollSpotify();
-    spotifyPollTimer = setInterval(pollSpotify, 5000);
-  } else {
-    updateSpotifyUI(false);
-  }
-
-  document.getElementById('spotifyConnect')?.addEventListener('click', spotifyAuth);
-  document.getElementById('spotifyDisconnect')?.addEventListener('click', () => {
-    clearInterval(spotifyPollTimer);
-    disconnectSpotify();
-  });
-}
-
-/* ──────────────────────────────────────────────────────────────
    STAT BARS (IntersectionObserver)
 ────────────────────────────────────────────────────────────── */
 function initStatBars() {
@@ -624,7 +437,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initQuotes();
   initGuestbook();
   initPlayer();
-  initSpotify();
   initStatBars();
   initInterestCards();
 

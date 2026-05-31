@@ -337,31 +337,6 @@ body {
 .pctrl-play { width: 46px; background: var(--win-title); color: #fff; font-size: 14px; }
 .pctrl-play:hover { background: var(--win-title-end); }
 
-/* spotify section */
-.spotify-section {
-  margin-bottom: 8px; padding: 8px;
-  border: 2px inset var(--win-dark); background: #0a0208;
-}
-.spotify-btn {
-  width: 100%; display: flex; align-items: center; justify-content: center; gap: 6px;
-  background: #1a0010; color: var(--blush); border-color: var(--maroon) var(--wine) var(--wine) var(--maroon);
-}
-.spotify-btn:hover { background: var(--win-title); color: #fff; }
-.spotify-icon { color: #1DB954; font-size: 14px; }
-.spotify-now-playing {
-  display: flex; align-items: center; justify-content: space-between; gap: 8px;
-}
-.spotify-now-playing.hidden { display: none; }
-.spotify-np-info { display: flex; align-items: center; gap: 8px; flex: 1; min-width: 0; }
-.spotify-album-art { width: 40px; height: 40px; border: 1px solid var(--maroon); object-fit: cover; flex-shrink: 0; background: #1a0010; }
-.spotify-np-track { font-family: var(--px); font-size: 7px; color: var(--blush); line-height: 1.5; word-break: break-word; }
-.spotify-np-artist { font-family: var(--vt); font-size: 15px; color: var(--gold); }
-.spotify-disconnect {
-  font-size: 7px; padding: 3px 8px; min-width: auto; flex-shrink: 0;
-  background: var(--wine); color: var(--blush); border-color: var(--maroon);
-}
-.spotify-disconnect:hover { background: #cc0000; color: #fff; }
-.spotify-status-text { font-family: var(--vt); font-size: 14px; color: var(--win-dark); text-align: center; padding: 4px 0; }
 
 /* drop zone */
 .drop-zone {
