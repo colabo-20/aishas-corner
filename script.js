@@ -13,8 +13,8 @@ const CONFIG = {
   // 1. Create project → get URL & anon key
   // 2. Create table "guestbook" with columns: id (int8, identity), name (text), message (text), created_at (timestamptz, default now())
   // 3. Enable RLS → add policy: allow SELECT and INSERT for anon role
-  SUPABASE_URL:  '',  // e.g. 'https://xxxx.supabase.co'
-  SUPABASE_KEY:  '',  // your anon/public key
+  SUPABASE_URL:  'https://rqizlhwvpzmtmeuvgl.supabase.co',
+  SUPABASE_KEY:  'sb_publishable_PyiBEH587iO1jyA3HWfkLQ_s6xKLuDN',
 };
 
 /* ──────────────────────────────────────────────────────────────
